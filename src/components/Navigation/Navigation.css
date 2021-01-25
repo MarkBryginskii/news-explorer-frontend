@@ -1,0 +1,133 @@
+.nav-bar {
+  height: 100%;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+}
+
+.nav-bar_dark {
+  color: #1A1B22;
+  border-color: #1A1B22;
+}
+
+.nav-bar_white {
+  color: #fff;
+  border-color: #D1D2D6;
+}
+
+.nav-bar__list {
+  padding: 0px;
+  height: 100%;
+  list-style: none;
+  display: flex;
+  align-items: center;
+}
+
+.nav-bar__list-item {
+  margin-right: 34px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.nav-bar__list-item:last-of-type {
+  margin-right: 0px;
+}
+
+.nav-bar__link {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: 'Roboto', 'Arial', 'Helvetica', 'sans-serif';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.nav-bar__link_active {
+  padding-top: 3px;
+  border-bottom: 3px solid ;
+}
+
+.nav-bar__auth-button {
+  margin: 0px;
+  padding: 0px 10px 0px;
+  background-color: transparent;
+  border: 1px solid;
+  border-color: inherit;
+  border-radius: 100px;
+  font-family: 'Roboto', 'Arial', 'Helvetica', 'sans-serif';
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  color: inherit;
+  cursor: pointer;
+  outline: none;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+@media screen and (min-width: 1024px) {
+
+  .nav-bar__list {
+    margin: 0px 32px 0px 0px;
+  }
+
+  .nav-bar__auth-button {
+    width: 176px;
+    height: 48px;
+    font-size: 18px;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+
+  .nav-bar__list {
+    margin: 0px 16px 0px 0px;
+  }
+
+  .nav-bar__auth-button {
+    width: 152px;
+    height: 40px;
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .nav-bar {
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  .nav-bar__list {
+    margin: 0px;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-bar__list-item {
+    margin: 0px;
+  }
+
+  .nav-bar__link {
+    margin-bottom: 25px;
+    line-height: 56px;
+  }
+
+  .nav-bar__link_active {
+    padding: 0px;
+    border-bottom: none;
+  }
+
+  .nav-bar__auth-button {
+    width: 100%;
+    height: 56px;
+  }
+}

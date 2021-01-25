@@ -1,8 +1,9 @@
-.root {
+.app {
   margin: 0px;
+  padding: 0px;
   min-width: 100vw;
   min-height: 100vh;
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: 'Inter', 'Roboto', 'Roboto Slab', 'Source Sans Pro', 'Arial', 'Helvetica', 'sans-serif';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

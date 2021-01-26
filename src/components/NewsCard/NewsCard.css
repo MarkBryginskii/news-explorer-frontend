@@ -76,19 +76,22 @@
 
 .news-card__button-tooltip {
   margin: 0px;
-  width: 182px;
+  padding: 0px 10px 0px;
   height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #FFFFFF;
+  box-shadow: 0px 10px 22px rgba(59, 74, 116, 0.1);
   border-radius: 10px;
   position: absolute;
-  bottom: 1%;
-  margin-left: -185px;
   z-index: 1;
-  visibility: hidden;
   opacity: 0;
+  transition: visibility 0.2s linear, opacity 0.2s linear;
+}
+
+.news-card__button-tooltip_active {
+  opacity: 1;
   transition: visibility 0.2s linear, opacity 0.2s linear;
 }
 
@@ -97,15 +100,10 @@
   font-family: 'Roboto', 'Arial', 'Helvetica', 'sans-serif';
   font-style: normal;
   font-weight: 500;
-  font-size: 10px;
-  line-height: 12px;
+  font-size: 12px;
+  line-height: 14px;
   color: #000000;
   text-align: center;
-}
-
-.news-card__button:hover .news-card__button-tooltip {
-  visibility: visible;
-  opacity: 1;
 }
 
 .news-card__image {
@@ -124,10 +122,11 @@
   display: flex;
   flex-direction: column;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .news-card__date {
-  margin-bottom: 12px;
+  margin: 0px 0px 12px;
   font-family: 'Source Sans Pro', 'Arial', 'Helvetica', 'sans-serif';
   font-style: normal;
   font-weight: normal;
@@ -144,6 +143,7 @@
 }
 
 .news-card__article {
+  height: min-content;
   font-family: 'Roboto', 'Arial', 'Helvetica', 'sans-serif';
   font-style: normal;
   font-weight: normal;
@@ -202,6 +202,11 @@
     font-size: 26px;
     line-height: 30px;
   }
+
+  .news-card__button-tooltip {
+    top: 24px;
+    right: 69px;
+  }
 }
 
 @media screen and (min-width: 768px) and (max-width: 1023px) {
@@ -229,13 +234,18 @@
   }
 
   .news-card__link {
-    padding: 16px;
+    padding: 16px 16px 24px;
   }
 
   .news-card__title {
     margin: 0px 0px 10px;
     font-size: 22px;
     line-height: 24px;
+  }
+
+  .news-card__button-tooltip {
+    top: 8px;
+    right: 53px;
   }
 }
 
@@ -271,5 +281,10 @@
     margin: 0px 0px 10px;
     font-size: 22px;
     line-height: 26px;
+  }
+
+  .news-card__button-tooltip {
+    top: 16px;
+    right: 61px;
   }
 }

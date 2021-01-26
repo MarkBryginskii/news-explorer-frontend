@@ -35,13 +35,17 @@
   border: 1px solid #D1D2D6;
   box-sizing: border-box;
   border-radius: 100px;
-  outline: none;
   font-family: 'Roboto', 'Arial', 'Helvetica', sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
   line-height: 22px;
   caret-color: #2F71E5;
+  outline: none;
+}
+
+.search-form__input:focus {
+  border: 2px solid #2F71E5;
 }
 
 .search-form__button {

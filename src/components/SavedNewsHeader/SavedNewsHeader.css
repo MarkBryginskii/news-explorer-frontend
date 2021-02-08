@@ -100,12 +100,12 @@
 
   .saved-news-header__title {
     margin: 0px 0px 16px;
-    width: min-content;
+    max-width: 400px;
     font-size: 30px;
     line-height: 34px;
   }
 
   .saved-news-header__keywords {
-    width: 288px;
+    max-width: 400px;
   }
 }

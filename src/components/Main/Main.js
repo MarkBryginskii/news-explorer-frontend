@@ -8,8 +8,8 @@ const Main = (props) => {
 
   return (
     <main className="content">
-      <SearchForm />
-      <SearchResult isPreloaderActive={props.isPreloaderActive} isResultVisible={props.isResultVisible} isLoggedIn={props.isLoggedIn}/>
+      <SearchForm onSubmit={props.onSubmit}/>
+      <SearchResult shownNews={props.shownNews} saveArticle={props.saveArticle} isPreloaderActive={props.isPreloaderActive} noSearchResults={props.noSearchResults} handleShowMore={props.handleShowMore} isResultVisible={props.isResultVisible} isLoggedIn={props.isLoggedIn}/>
       <About />
     </main>
     );

@@ -1,13 +1,12 @@
 import React from 'react';
 import './NewsCardList.css';
 import NewsCard from "../NewsCard/NewsCard";
-import NewsCardsData from "../../data/NewsCardsData.json";
 
-const NewsCardList = () => {
+const NewsCardList = (props) => {
 
   return (
     <ul className="news-cards">
-      {NewsCardsData.map(card => <NewsCard {...card}/>)}
+      {props.newsData && props.newsData.map((newsCard, _id) => <NewsCard key={_id} {...newsCard} saveArticle={props.saveArticle} deleteArticle={props.deleteArticle} isLoggedIn={props.isLoggedIn}/>)}
     </ul>);
 }
 

@@ -56,7 +56,7 @@
 
 .nav-bar__auth-button {
   margin: 0px;
-  padding: 0px 10px 0px;
+  padding: 0px 15px 0px;
   background-color: transparent;
   border: 1px solid;
   border-color: inherit;
@@ -70,6 +70,16 @@
   outline: none;
   text-overflow: ellipsis;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.nav-bar__logoff-icon {
+  margin-left: 8px ;
+  width: 16px;
+  height: 16px;
 }
 
 @media screen and (min-width: 1024px) {
@@ -79,7 +89,7 @@
   }
 
   .nav-bar__auth-button {
-    width: 176px;
+    max-width: 176px;
     height: 48px;
     font-size: 18px;
   }

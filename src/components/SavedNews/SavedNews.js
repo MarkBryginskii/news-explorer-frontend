@@ -7,8 +7,8 @@ const SavedNews = (props) => {
 
   return (
     <main className="saved-news">
-      <SavedNewsHeader />
-      <SavedNewsGrid isLoggedIn={props.isLoggedIn}/>
+      <SavedNewsHeader userName={props.userName} newsData={props.savedNews}/>
+      <SavedNewsGrid isLoggedIn={props.isLoggedIn} savedNews={props.savedNews} deleteArticle={props.deleteArticle}/>
     </main>);
 }
 

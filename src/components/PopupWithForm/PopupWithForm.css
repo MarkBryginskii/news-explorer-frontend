@@ -159,6 +159,21 @@
   color: #FF0000;
 }
 
+.popup__main-error {
+  display: none;
+  margin: 0px auto;
+  font-family: inherit;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
+  color: #FF0000;
+}
+
+.popup__main-error_visible {
+  display: block;
+}
+
 @media screen and (max-width: 767px) {
 
   .popup {

@@ -26,6 +26,21 @@
   color: #1A1B22;
 }
 
+.search-result__no-result {
+  display: none;
+  margin: 0px auto;
+  font-family: 'Roboto', 'Arial', 'Helvetica', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  opacity: 0.6;
+}
+
+.search-result__no-result_visible {
+  display: block;
+}
+
 .search-result__button {
   padding: 0px;
   background-color: #FFFFFF;

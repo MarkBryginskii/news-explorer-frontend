@@ -7,7 +7,7 @@ const SavedNewsGrid = (props) => {
   return (
     <section className="saved-news-grid">
       <div className="saved-news-grid__container">
-        <NewsCardList isLoggedIn={props.isLoggedIn}/>
+        <NewsCardList isLoggedIn={props.isLoggedIn} newsData={props.savedNews} deleteArticle={props.deleteArticle}/>
       </div>
     </section>);
 }

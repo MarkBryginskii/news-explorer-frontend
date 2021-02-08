@@ -10,7 +10,7 @@ const Header = (props) => {
     <div className="header-container">
       <Link className={`header__logo header__logo_${props.theme}`} to='/'>NewsExplorer</Link>
       <div className="header__nav-bar">
-        <Navigation theme={props.theme} isLoggedIn={props.isLoggedIn} currentUser={props.currentUser} formSwitcher={props.formSwitcher}/>
+        <Navigation theme={props.theme} isLoggedIn={props.isLoggedIn} currentUser={props.currentUser} formSwitcher={props.formSwitcher} onLogoff={props.onLogoff} userName={props.userName}/>
       </div>
       <button
         className={`header__nav-button ${props.isNavPopupOpen && 'header__nav-button_opened' } header__nav-button_${props.theme}`}

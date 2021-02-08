@@ -29,10 +29,14 @@ const Register = (props) => {
       password: passwordRef.current.value,
       name: nameRef.current.value
     });
+
+    emailRef.current.value = '';
+    passwordRef.current.value = '';
+    nameRef.current.value = '';
   }
 
   return (
-    <PopupWithForm name="Register" title="Регистрация" buttonText="Зарегистрироваться" linkText="Войти" isOpen={props.isOpen} onClose={props.onClose} isFormValid={isFormValid} formSwitcher={props.formSwitcher} submit={formSubmit}>
+    <PopupWithForm name="Register" title="Регистрация" linkText="Войти" isOpen={props.isOpen} onClose={props.onClose} isFormValid={isFormValid} formSwitcher={props.formSwitcher}>
       <div className="popup__input-container">
         <label className="popup__text-field-lable">Email</label>
         <input onChange={handleInputChange} defaultValue='' ref={emailRef} className="popup__text-field" id="popup__user-email" type='email' name='email' placeholder="Введите почту" required></input>
@@ -48,6 +52,8 @@ const Register = (props) => {
         <input onChange={handleInputChange} defaultValue='' ref={nameRef} className="popup__text-field" id="popup__user-name" type='text' name='name' placeholder="Введите имя" minLength='2' maxLength='20' required></input>
         <span id="popup__user-name-error" className="popup__input-error">{validationMessage.name}</span>
       </div>
+      <span className={`popup__main-error ${props.isAuthFail && 'popup__main-error_visible' }`}>Такой пользователь уже есть</span>
+      <button type="submit" onClick={formSubmit} className={`popup__save-button ${!isFormValid && 'popup__save-button_disabled' }`} disabled={!isFormValid}>Зарегистрироваться</button>
     </PopupWithForm>
   );
 }

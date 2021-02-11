@@ -42,6 +42,7 @@
 }
 
 .search-result__button {
+  display: none;
   padding: 0px;
   background-color: #FFFFFF;
   border: none;
@@ -53,6 +54,10 @@
   font-size: 18px;
   line-height: 24px;
   color: #1A1B22;
+}
+
+.search-result__button_visible {
+  display: block;
 }
 
 .search-result__button:hover {

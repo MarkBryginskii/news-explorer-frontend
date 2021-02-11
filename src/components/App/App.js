@@ -13,6 +13,7 @@ import InfoTooltip from '../InfoTooltip/InfoTooltip';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
+import {NUMBER_OF_SHOWN_CARDS} from '../../utils/NewsApiConfig';
 import mainApi from '../../utils/MainApi';
 import newsApi from '../../utils/NewsApi';
 
@@ -30,17 +31,18 @@ const App = () => {
 
   const [isRegisterPopupOpen, setIsRegisterPopupOpen] = React.useState(false);
   const [isLoginPopupOpen, setIsLoginPopupOpen] = React.useState(false);
+  const [isPopupBlocked, setIsPopupBlocked] = React.useState(false);
   const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = React.useState(false);
   const [isNavPopupOpen, setIsNavPopupOpen] = React.useState(false);
 
   const [isResultVisible, setIsResultVisible] = React.useState(false);
   const [isPreloaderActive, setIsPreloaderActive] = React.useState(false);
+  const [isShowMoreBtnActive, setIsShowMoreBtnActive] = React.useState(false);
   const [noSearchResults, setNoSearchResults] = React.useState(false);
   const [newsCardsShown, setNewsCardsShown] = React.useState(3);
 
-  const [newsData, setNewsData] = React.useState([]);
-  const [shownNews, setShownNews] = React.useState([]);
   const [savedNews, setSavedNews] = React.useState([]);
+  const [shownNews, setShownNews] = React.useState([]);
 
   //#region MAIN-API
 
@@ -48,12 +50,19 @@ const App = () => {
     if(localStorage.getItem('jwt')) {
       mainApi.userInfo(localStorage.getItem('jwt'))
       .then((userData) => {
-        setIsloggedIn(true);
         setCurrentUser(userData);
-        getSavedArticles();
       })
       .then(() => {
+        setIsloggedIn(true);
+        getSavedArticles();
         history.push('/');
+      })
+      .then(() => {
+        if (localStorage.lastSearch) {
+          setShownNews(JSON.parse(localStorage.getItem('lastSearch')).slice(0, newsCardsShown));
+          setIsResultVisible(true);
+          setIsShowMoreBtnActive(true);
+        }
       })
       .catch((err) => {console.log(err)});
     }
@@ -87,26 +96,37 @@ const App = () => {
   }
 
   const handleRegister = (obj) => {
+    setIsPopupBlocked(true);
     mainApi.register(obj)
     .then((res) => {
       if(!res.message) {
         closeAllPopups();
         setIsInfoTooltipPopupOpen(true);
+        setIsPopupBlocked(false);
       } else {
         setIsAuthFail(true);
+        setIsPopupBlocked(false);
       }
     })
     .catch((err) => {console.log(err)})
   }
 
   const handleLogin = (obj) => {
+    setIsPopupBlocked(true);
     mainApi.login(obj)
     .then((res) => {
       if(res.token) {
-        console.log(currentUser);
-        closeAllPopups();
-        setIsloggedIn(true);
-        history.push('/');
+        mainApi.userInfo(res.token)
+        .then((userData) => {
+          setCurrentUser(userData);
+        })
+        .then(() => {
+          closeAllPopups();
+          setIsPopupBlocked(false);
+          setIsloggedIn(true);
+          history.push('/');
+        })
+        .catch((err) => {console.log(err)})
       } else {
         setIsAuthFail(true);
       }
@@ -116,6 +136,7 @@ const App = () => {
 
   function handleLogoff() {
     localStorage.removeItem('jwt');
+    localStorage.removeItem('lastSearch');
     setIsloggedIn(false);
     history.push('/');
   }
@@ -125,10 +146,11 @@ const App = () => {
   //#region NEWS-API
 
   const resetSearch = () => {
+    localStorage.removeItem('lastSearch');
     setNewsCardsShown(3);
-    setNewsData([]);
     setShownNews([]);
     setNoSearchResults(false);
+    setIsShowMoreBtnActive(false);
   }
 
   const checkIfItSaved = (row, keyword) => {
@@ -152,8 +174,9 @@ const App = () => {
     } else {
       const processedData = await data.articles.map((row) => checkIfItSaved(row, keyword));
       setIsPreloaderActive(false);
-      setNewsData(processedData);
-      setShownNews(processedData.slice(0, newsCardsShown));
+      localStorage.setItem('lastSearch',JSON.stringify(processedData));
+      setShownNews(JSON.parse(localStorage.getItem('lastSearch')).slice(0, newsCardsShown));
+      setIsShowMoreBtnActive(true);
     }
   }
 
@@ -164,11 +187,17 @@ const App = () => {
   }
 
   const saveArticle = (article) => {
-    mainApi.saveArticle(article)
-    .then((res) => {
-      setSavedNews([res , ...savedNews]);
-    })
-    .catch((err) => {console.log(err)});
+    if(isLoggedIn) {
+      mainApi.saveArticle(article)
+      .then((res) => {
+        setSavedNews([res , ...savedNews]);
+        const newShownNews = shownNews.map((c) => c.url === article.link ? (Object.assign({}, c, {isSaved: true})) : c);
+        setShownNews(newShownNews);
+      })
+      .catch((err) => {console.log(err)});
+    } else {
+      setIsRegisterPopupOpen(true);
+    }
   }
 
   const deleteArticle = (article) => {
@@ -176,6 +205,8 @@ const App = () => {
     .then(() => {
       const newCards = savedNews.filter((c) => c._id !== article._id);
       setSavedNews(newCards);
+      const newShownNews = shownNews.map((c) => c.url === article.link ? (Object.assign({}, c, {isSaved: false})) : c);
+      setShownNews(newShownNews);
     })
     .catch((err) => {console.log(err)});
   }
@@ -183,8 +214,8 @@ const App = () => {
   //#endregion
 
   const handleShowMore = () => {
-    setNewsCardsShown(newsCardsShown + 3);
-    setShownNews(newsData.slice(0, newsCardsShown));
+    setNewsCardsShown(newsCardsShown + NUMBER_OF_SHOWN_CARDS);
+    setShownNews(JSON.parse(localStorage.getItem('lastSearch')).slice(0, newsCardsShown));
   }
 
   // ============================================================================================
@@ -197,7 +228,6 @@ const App = () => {
             <Header
               theme='white'
               isLoggedIn={isLoggedIn}
-              currentUser={currentUser}
               isNavPopupOpen={isNavPopupOpen}
               onClose={closeAllPopups}
               setIsNavPopupOpen={setIsNavPopupOpen}
@@ -213,7 +243,8 @@ const App = () => {
               noSearchResults={noSearchResults}
               isResultVisible={isResultVisible}
               handleShowMore={handleShowMore}
-              isLoggedIn={isLoggedIn}/>
+              isLoggedIn={isLoggedIn}
+              isShowMoreBtnActive={isShowMoreBtnActive}/>
           </Route>
           <ProtectedRoute exact path="/saved-news" isLoggedIn={isLoggedIn}>
             <Header
@@ -225,9 +256,8 @@ const App = () => {
               setIsNavPopupOpen={setIsNavPopupOpen}
               handleNavButtonClick={handleNavButtonClick}
               formSwitcher={switchToLogin}
-              onLogoff={handleLogoff}
-              userName={currentUser.name}/>
-            <SavedNews isLoggedIn={isLoggedIn} userName={currentUser.name} savedNews={savedNews} deleteArticle={deleteArticle}/>
+              onLogoff={handleLogoff}/>
+            <SavedNews isLoggedIn={isLoggedIn} savedNews={savedNews} deleteArticle={deleteArticle}/>
           </ProtectedRoute>
         </Switch>
         <Footer />
@@ -239,8 +269,8 @@ const App = () => {
           isNavPopupOpen={isNavPopupOpen}
           handleNavButtonClick={handleNavButtonClick}
           formSwitcher={switchToLogin}/>
-        <Login onSubmit={handleLogin} isOpen={isLoginPopupOpen} onClose={closeAllPopups} formSwitcher={switchToRegister} isAuthFail={isAuthFail}/>
-        <Register onSubmit={handleRegister} isOpen={isRegisterPopupOpen} onClose={closeAllPopups} formSwitcher={switchToLogin} isAuthFail={isAuthFail}/>
+        <Login isPopupBlocked={isPopupBlocked} onSubmit={handleLogin} isOpen={isLoginPopupOpen} onClose={closeAllPopups} formSwitcher={switchToRegister} isAuthFail={isAuthFail}/>
+        <Register isPopupBlocked={isPopupBlocked} onSubmit={handleRegister} isOpen={isRegisterPopupOpen} onClose={closeAllPopups} formSwitcher={switchToLogin} isAuthFail={isAuthFail}/>
         <InfoTooltip isOpen={isInfoTooltipPopupOpen} onClose={closeAllPopups} formSwitcher={switchToLogin}/>
       </div>
     </CurrentUserContext.Provider>

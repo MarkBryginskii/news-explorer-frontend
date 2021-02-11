@@ -6,8 +6,6 @@ const NewsCard = (props) => {
 
   const [isCardTooltipVisible, setIsCardTooltipVisible] = React.useState(false);
 
-  const [isSaved, setIsSaved] = React.useState(props.isSaved);
-
   const handleMouseHover = () => {
     setIsCardTooltipVisible(!isCardTooltipVisible);
   }
@@ -27,17 +25,18 @@ const NewsCard = (props) => {
   function handleClickSave(evt) {
     evt.preventDefault();
 
-    setIsSaved(true);
+    if(props.isLoggedIn) {
 
-    props.saveArticle({
-      keyword: props.keyword,
-      title: props.title,
-      text: props.description,
-      date: props.publishedAt,
-      source: props.source.name,
-      link: props.url,
-      image: props.urlToImage,
-    });
+      props.saveArticle({
+        keyword: props.keyword,
+        title: props.title,
+        text: props.description,
+        date: props.publishedAt,
+        source: props.source.name,
+        link: props.url,
+        image: props.urlToImage,
+      });
+    }
   }
 
   function handleClickDelete(evt) {
@@ -53,7 +52,7 @@ const NewsCard = (props) => {
           <div className={`news-card__button-tooltip ${!props.isLoggedIn & isCardTooltipVisible && 'news-card__button-tooltip_active'}`}>
             <p className="news-card__button-tooltip-text">Войдите, чтобы сохранять статьи</p>
           </div>
-          <button className={`news-card__button news-card__save-icon ${isSaved && 'news-card__save-icon_active'}`} type="button" onMouseEnter={handleMouseHover} onMouseLeave={handleMouseHover} onClick={handleClickSave} disabled={props.isSaved}></button>
+          <button className={`news-card__button news-card__save-icon ${props.isSaved && 'news-card__save-icon_active'}`} type="button" onMouseEnter={handleMouseHover} onMouseLeave={handleMouseHover} onClick={handleClickSave} disabled={props.isSaved}></button>
         </Route>
         <Route exact path="/saved-news">
           <div className="news-card__categoty">

@@ -1,13 +1,14 @@
+import {newsApiConfig} from '../utils/NewsApiConfig';
+
 class NewsApi {
   constructor(options) {
-    this._baseUrl = options.baseUrl;
-    this._from = options.from;
-    this._to = options.to;
-    this._language = options.language;
-    this._pageSize = options.pageSize;
-    this._sortBy = options.sortBy;
-    this._apiKey = options.apiKey;
-    this._headers = options.headers;
+    this._baseUrl = options.BASE_URL;
+    this._from = options.FROM;
+    this._to = options.TO;
+    this._language = options.LANGUAGE;
+    this._pageSize = options.PAGE_SIZE;
+    this._sortBy = options.SORT_BY;
+    this._apiKey = options.API_KEY;
   }
 
   _handleOriginalResponse(res) {
@@ -24,20 +25,6 @@ class NewsApi {
   }
 }
 
-const numberOfDays = 7;
-
-const fromDate = new Date(new Date().setDate(new Date().getDate() - numberOfDays)).toISOString().substring(0, 10);
-const toDate = new Date().toISOString().substring(0, 10);
-
-const newsApi = new NewsApi({
-  // baseUrl: "https://newsapi.org/v2/everything?",
-  baseUrl: "https://nomoreparties.co/news/v2/everything?",
-  from: fromDate,
-  to: toDate,
-  language: 'ru',
-  pageSize: '100',
-  sortBy: 'publishedAt',
-  apiKey: 'd11e066c35154e36b19e9cdf506d0341',
-});
+const newsApi = new NewsApi(newsApiConfig);
 
 export default newsApi;

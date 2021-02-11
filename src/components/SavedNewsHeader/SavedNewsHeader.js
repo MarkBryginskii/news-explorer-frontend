@@ -1,7 +1,10 @@
 import React from 'react';
 import './SavedNewsHeader.css';
+import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 
 const SavedNewsHeader = (props) => {
+
+  const currentUser = React.useContext(CurrentUserContext);
 
   const keywordsArr = props.newsData.map((a) => a.keyword)
 
@@ -36,7 +39,7 @@ const SavedNewsHeader = (props) => {
     <section className="saved-news-header">
       <div className="saved-news-header__container">
         <p className="saved-news-header__subtitle">Сохранённые статьи</p>
-        <h2 className="saved-news-header__title">{props.userName}, у вас {props.newsData.length} сохранённых статей</h2>
+        <h2 className="saved-news-header__title">{currentUser.name}, у вас {props.newsData.length} сохранённых статей</h2>
         <>{keywordSubtitle()}</>
       </div>
     </section>);

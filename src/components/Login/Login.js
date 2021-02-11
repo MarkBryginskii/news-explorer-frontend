@@ -36,12 +36,12 @@ const Login = (props) => {
     <PopupWithForm name="Login" title="Войти" linkText="Зарегистрироваться" isOpen={props.isOpen} onClose={props.onClose} isFormValid={isFormValid} formSwitcher={props.formSwitcher} submit={formSubmit}>
       <div className="popup__input-container">
         <label className="popup__text-field-lable">Email</label>
-        <input onChange={handleInputChange} defaultValue='' ref={emailRef} className="popup__text-field" id="popup__user-email" type='email' name='email' placeholder="Введите почту" required></input>
+        <input onChange={handleInputChange} defaultValue='' ref={emailRef} className="popup__text-field" id="popup__user-email" type='email' name='email' placeholder="Введите почту" required disabled={props.isPopupBlocked}></input>
         <span id="popup__user-email-error" className="popup__input-error">{validationMessage.email}</span>
       </div>
       <div className="popup__input-container">
         <label className="popup__text-field-lable">Пароль</label>
-        <input onChange={handleInputChange} defaultValue='' ref={passwordRef} className="popup__text-field" id="popup__user-password" type='password' name='password' placeholder="Введите пароль" minLength='6' required></input>
+        <input onChange={handleInputChange} defaultValue='' ref={passwordRef} className="popup__text-field" id="popup__user-password" type='password' name='password' placeholder="Введите пароль" minLength='6' required disabled={props.isPopupBlocked}></input>
         <span id="popup__user-password-error" className="popup__input-error">{validationMessage.password}</span>
       </div>
       <span className={`popup__main-error ${props.isAuthFail && 'popup__main-error_visible' }`}>Неправильная почта или пароль</span>

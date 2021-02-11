@@ -18,7 +18,7 @@ const SearchResult = (props) => {
       <Preloader isPreloaderActive={props.isPreloaderActive}/>
       <p className={`search-result__no-result ${props.noSearchResults && 'search-result__no-result_visible'}`}>Нет подходящих новостей</p>
       <NewsCardList saveArticle={props.saveArticle} newsData={props.shownNews} isLoggedIn={props.isLoggedIn}/>
-      <button className="search-result__button" type="button" onClick={showMoreClick}>Показать еще</button>
+      <button className={`search-result__button ${props.isShowMoreBtnActive && 'search-result__button_visible'}`} type="button" onClick={showMoreClick}>Показать еще</button>
     </div>
   </section>);
 }

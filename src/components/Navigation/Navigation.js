@@ -3,8 +3,11 @@ import { NavLink } from 'react-router-dom';
 import './Navigation.css';
 import LogoffIconWhite from '../../images/logoff-icon-white.svg';
 import LogoffIconDark from '../../images/logoff-icon-dark.svg';
+import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 
 const Navigation = (props) => {
+
+  const currentUser = React.useContext(CurrentUserContext);
 
   return (
     <nav className={`nav-bar nav-bar_${props.theme}`} >
@@ -16,7 +19,7 @@ const Navigation = (props) => {
       className="nav-bar__auth-button"
       type="button"
       onClick={props.isLoggedIn ? props.onLogoff : props.formSwitcher}>
-        {props.isLoggedIn ? props.userName : 'Авторизоваться'}
+        {props.isLoggedIn ? currentUser.name : 'Авторизоваться'}
         {props.isLoggedIn && <img className='nav-bar__logoff-icon' src={props.theme === 'white' ? LogoffIconWhite : LogoffIconDark} alt='logoff'/>}
       </button>
   </nav>);

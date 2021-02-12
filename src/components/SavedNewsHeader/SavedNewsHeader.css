@@ -1,0 +1,111 @@
+.saved-news-header__container {
+  margin: 0px auto;
+  padding: 0px 40px;
+  max-width: 1232px;
+}
+
+.saved-news-header__subtitle {
+  font-family: 'Roboto', 'Arial', 'Helvetica', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 24px;
+  color: rgba(26, 27, 34, 0.5);
+}
+
+.saved-news-header__title {
+  font-family: 'Roboto Slab', 'Arial', 'Helvetica', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  color: #1A1B22;
+}
+
+.saved-news-header__keywords {
+  margin: 0px;
+  font-family: 'Roboto', 'Arial', 'Helvetica', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 24px;
+  color: #1A1B22;
+}
+
+.saved-news-header__keyword {
+  font-family: 'Roboto', 'Arial', 'Helvetica', sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 24px;
+  color: #1A1B22;
+}
+
+@media screen and (min-width: 1024px) {
+
+  .saved-news-header {
+    padding: 120px 0px 56px;
+  }
+
+  .saved-news-header__subtitle {
+    margin: 0px 0px 28px;
+    font-size: 18px;
+  }
+
+  .saved-news-header__title {
+    margin: 0px 0px 30px;
+    width: 530px;
+    font-size: 40px;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+
+  .saved-news-header {
+    padding: 90px 0px 32px;
+  }
+
+  .saved-news-header__subtitle {
+    margin: 0px 0px 16px;
+    font-size: 14px;
+  }
+
+  .saved-news-header__title {
+    margin: 0px 0px 16px;
+    width: 336px;
+    font-size: 30px;
+    line-height: 34px;
+  }
+
+  .saved-news-header__keywords {
+    font-size: 14px;
+  }
+
+  .saved-news-header__keyword {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+
+  .saved-news-header {
+    padding: 64px 0px 32px;
+  }
+
+  .saved-news-header__container {
+    padding: 0px 16px;
+  }
+
+  .saved-news-header__subtitle {
+    margin: 0px 0px 16px;
+    font-size: 12px;
+  }
+
+  .saved-news-header__title {
+    margin: 0px 0px 16px;
+    max-width: 400px;
+    font-size: 30px;
+    line-height: 34px;
+  }
+
+  .saved-news-header__keywords {
+    max-width: 400px;
+  }
+}
